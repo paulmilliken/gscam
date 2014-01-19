@@ -7,7 +7,11 @@ int main(int argc, char** argv) {
   ros::NodeHandle nh, nh_private("~");
 
   gscam::GSCam gscam_driver(nh, nh_private);
-  gscam_driver.run();
+  // Enter slow loop to run driver in case the camera is not yet up
+  while(true) {
+    gscam_driver.run();
+    sleep(10);
+  }
 
   return 0;
 }
